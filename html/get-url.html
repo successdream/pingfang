@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../asserts/iosSelect/iosSelect.css">
+    <title>Document</title>
+</head>
+<body>
+      <div>
+          <input type="text" class="showBank" placeholder="请输入内容">
+      </div>
+      <button id="showDom">按钮</button>
+      <div id="valDom">
+
+      </div>
+    
+    <script src="../asserts/jquery-3.2.1.min.js"></script>
+    <script src="../asserts/iosSelect/iosSelect.js"></script>
+    <!-- <script src="../js/get-url.js"></script> -->
+    <script>
+        var data=[{'id': '10001', 'value': '演示数据1'},{'id': '10002', 'value': '演示数据2'}];
+        var showDom = document.querySelector('#showDom');// 绑定一个触发元素
+        var valDom = document.querySelector('#valDom');  // 绑定一个存储结果的元素
+        showDom.addEventListener('click', function () {  // 添加监听事件
+            var val = showDom.dataset['id'];             // 获取元素的data-id属性值
+            var title = showDom.dataset['value'];        // 获取元素的data-value属性值
+            // 实例化组件
+            var example = new IosSelect(1,               // 第一个参数为级联层级，演示为1
+                [data],                             // 演示数据
+                {
+                    container: '.container',             // 容器class
+                    title: '演示标题',                    // 标题
+                    itemHeight: 50,                      // 每个元素的高度
+                    itemShowCount: 3,                    // 每一列显示元素个数，超出将隐藏
+                    oneLevelId: val,                     // 第一级默认值
+                    callback: function (selectOneObj) {  // 用户确认选择后的回调函数
+                        valDom.value = selectOneObj.id;
+                        showDom.innerHTML = selectOneObj.value;
+                        showDom.dataset['id'] = selectOneObj.id;
+                        showDom.dataset['value'] = selectOneObj.value;
+                    }
+            });
+});
+    
+    </script>
+  
+</body>
+</html>
